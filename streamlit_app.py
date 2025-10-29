@@ -1,6 +1,5 @@
-﻿# streamlit_app.py
-
-import streamlit as st
+﻿import streamlit as st
+import tempfile
 from langchain_core.documents import Document
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
@@ -19,7 +18,12 @@ query = st.text_input("Ask a question based on the document")
 # 🧠 Load and Process PDF
 if uploaded_file and query:
     with st.spinner("Summoning documents..."):
-        loader = PyPDFLoader(uploaded_file.name)
+        # Save uploaded file to a temporary path
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+            tmp_file.write(uploaded_file.read())
+            tmp_path = tmp_file.name
+
+        loader = PyPDFLoader(tmp_path)
         documents = loader.load()
 
         splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
