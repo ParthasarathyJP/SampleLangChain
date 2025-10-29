@@ -35,10 +35,8 @@ if uploaded_file and query:
 
     # 🔮 LLM Setup
     llm = HuggingFaceEndpoint(
-        repo_id="google/flan-t5-xl",
-        huggingfacehub_api_token="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",
-        temperature=0.7,
-        model_kwargs={"max_length": 512}
+    repo_id="google/flan-t5-xl",
+    huggingfacehub_api_token="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"
     )
 
     # 🧵 Prompt + Chain
