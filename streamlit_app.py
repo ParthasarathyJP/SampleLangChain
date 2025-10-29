@@ -34,9 +34,10 @@ if uploaded_file and query:
         retriever = db.as_retriever()
 
     # 🔮 LLM Setup
+    token = st.secrets["huggingface"]["api_token"]
     llm = HuggingFaceEndpoint(
     repo_id="google/flan-t5-xl",
-    huggingfacehub_api_token="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"
+    huggingfacehub_api_token=token
     )
 
     # 🧵 Prompt + Chain
